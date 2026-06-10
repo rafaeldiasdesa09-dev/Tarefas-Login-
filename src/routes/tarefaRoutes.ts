@@ -1,37 +1,99 @@
-// ============================================================
-// 🎯 TODO 11: Rotas de tarefas (PROTEGIDAS!)
-// ============================================================
-import { Router, Request, Response } from "express";
-import * as TarefaModel from "../models/tarefaModel";
+import { Router } from "express";
+import * as tarefaModel from "../models/tarefaModel";
 
-export const tarefaRoutes = Router();
+const router = Router();
 
-// 🎯 TODO 12: GET /tarefas — Listar tarefas do usuário logado
-// Se !session.userId: flash + redirect /login
-// TarefaModel.listarPorUsuario(session.userId)
-// Renderizar "tarefas" com { nome, tarefas, flash }
-tarefaRoutes.get("/tarefas", async (req: Request, res: Response) => {
-  // TODO: verificar login + listar tarefas
+// Middleware para verificar login
+function requerAutenticacao(req: any, res: any, next: any) {
+  if (req.session?.usuario) {
+    return next();
+  }
+
   res.redirect("/login");
-});
+}
 
-// 🎯 TODO 13: POST /tarefas — Adicionar tarefa
-// Validar texto não vazio
-// TarefaModel.adicionar(session.userId, texto)
-// Flash "Tarefa adicionada!"
-tarefaRoutes.post("/tarefas", async (req: Request, res: Response) => {
-  // TODO: adicionar tarefa
-  res.redirect("/tarefas");
-});
+// GET /tarefas
+router.get(
+  "/tarefas",
+  requerAutenticacao,
+  async (req: any, res: any): Promise<void> => {
+    try {
+      const usuario = req.session.usuario;
+      const tarefas = await tarefaModel.listarPorUsuario(usuario.id);
 
-// 🎯 TODO 14: POST /tarefas/:id/concluir — Toggle concluída
-tarefaRoutes.post("/tarefas/:id/concluir", async (req: Request, res: Response) => {
-  // TODO: concluir/desconcluir tarefa
-  res.redirect("/tarefas");
-});
+      res.render("tarefas", {
+        nome: usuario.nome,
+        tarefas,
+        flash: null,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Erro ao carregar tarefas.");
+    }
+  }
+);
 
-// 🎯 TODO 15: POST /tarefas/:id/remover — Remover tarefa
-tarefaRoutes.post("/tarefas/:id/remover", async (req: Request, res: Response) => {
-  // TODO: remover tarefa
-  res.redirect("/tarefas");
-});
+// POST /tarefas
+router.post(
+  "/tarefas",
+  requerAutenticacao,
+  async (req: any, res: any): Promise<void> => {
+    try {
+      const { texto } = req.body;
+      const usuario = req.session.usuario;
+
+      if (texto && texto.trim() !== "") {
+        await tarefaModel.adicionar(usuario.id, texto.trim());
+      }
+
+      res.redirect("/tarefas");
+    } catch (error) {
+      console.error(error);
+      res.redirect("/tarefas");
+    }
+  }
+);
+
+// POST /tarefas/:id/concluir
+router.post(
+  "/tarefas/:id/concluir",
+  requerAutenticacao,
+  async (req: any, res: any): Promise<void> => {
+    try {
+      const idTarefa = Number(req.params.id);
+
+      await tarefaModel.concluir(
+        idTarefa,
+        req.session.usuario.id
+      );
+
+      res.redirect("/tarefas");
+    } catch (error) {
+      console.error(error);
+      res.redirect("/tarefas");
+    }
+  }
+);
+
+// POST /tarefas/:id/remover
+router.post(
+  "/tarefas/:id/remover",
+  requerAutenticacao,
+  async (req: any, res: any): Promise<void> => {
+    try {
+      const idTarefa = Number(req.params.id);
+
+      await tarefaModel.remover(
+        idTarefa,
+        req.session.usuario.id
+      );
+
+      res.redirect("/tarefas");
+    } catch (error) {
+      console.error(error);
+      res.redirect("/tarefas");
+    }
+  }
+);
+
+export { router as tarefaRoutes };
