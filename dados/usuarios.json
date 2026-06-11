@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 1,
+    "nome": "lucio",
+    "email": "lucio@gmail.com",
+    "senha": "$2b$10$A5xNT2yMBedsfTRq9ZyDHugDa8zimVqCe.jq7TiGJL848tbrohWnC"
+  },
+  {
+    "id": 2,
+    "nome": "sonic",
+    "email": "sonic@gmail.com",
+    "senha": "$2b$10$q34JSqFnVOgNpg6ro6NZYui1zp3EQE1KZ5kSDXGvLdWeZ2pWGHiea"
+  }
+]

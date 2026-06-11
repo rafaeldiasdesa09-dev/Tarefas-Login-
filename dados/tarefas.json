@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "texto": "fazer côcô",
+    "concluida": false,
+    "criadaEm": "11/06/2026"
+  },
+  {
+    "id": 2,
+    "userId": 2,
+    "texto": "matar o robotnikolas",
+    "concluida": false,
+    "criadaEm": "11/06/2026"
+  }
+]
