@@ -196,11 +196,44 @@ header .user {
 
 .center h2 {
     color: var(--accent);
-    font-size: 2rem;
+    font-size: 6rem;
     margin-bottom: 8px;
 }
+h2 {
+    margin-top: 20px; /* Espaçamento externo */
+    border-bottom: 2px solid #3498db; /* Adiciona uma linha abaixo do título */
+    color: #333333; /* Cor inicial */
+    transition: color 0.5s ease; /* Suaviza a mudança de cor */
+  }
+  
+  h2:hover {
+    color: #ff5722; /* Cor ao passar o mouse */
+  }
+  
 
 .center p {
     color: var(--muted);
     margin-bottom: 20px;
+}
+.btn.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #773715, #ff7b39);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Roboto Condensed", sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(232, 98, 26, 0.4);
+}
+
+.btn.btn-primary:active {
+    transform: scale(0.98);
 }
