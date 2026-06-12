@@ -38,11 +38,6 @@ router.get("/registro", (req: any, res: any) => {
   res.render("registro", { flash: null });
 });
 
-// GET /registros
-router.get("/registros", (req: any, res: any) => {
-  res.render("registros");
-});
-
 // POST /registro
 router.post("/registro", async (req: any, res: any) => {
   const { nome, email, senha } = req.body;
@@ -50,8 +45,7 @@ router.post("/registro", async (req: any, res: any) => {
   try {
     await userModel.registrar(nome, email, senha);
 
-    // Redireciona para registros.ejs
-    return res.redirect("/registros");
+    return res.redirect("/login");
   } catch (error: any) {
     res.render("registro", {
       flash: error.message || "Erro ao registrar usuário.",

@@ -10,5 +10,17 @@
     "nome": "sonic",
     "email": "sonic@gmail.com",
     "senha": "$2b$10$q34JSqFnVOgNpg6ro6NZYui1zp3EQE1KZ5kSDXGvLdWeZ2pWGHiea"
+  },
+  {
+    "id": 3,
+    "nome": "caralhão grosso",
+    "email": "mariobros@gmail.com",
+    "senha": "$2b$10$Kp597c..8xWRvxlbU23mNOycG3N2GSr8VYr41naErNInwgToIjkQW"
+  },
+  {
+    "id": 4,
+    "nome": "mario bros",
+    "email": "ovovotarnomariobros@gmail.com",
+    "senha": "$2b$10$ZzGz5REBJDLMI6ynqE8KIeNeGYcYApK6Z3zonGgziIFoPGr1zERd2"
   }
 ]
